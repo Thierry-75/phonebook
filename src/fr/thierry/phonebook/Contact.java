@@ -43,28 +43,48 @@ public class Contact {
 		Contact contact = new Contact(nom, nombre);
 		return contact;
 	}
+	
+	public void saisieNom(String name) {
+		if (name.isEmpty() && !name.matches("^[a-z]*$") )
+			saisieNom(name);
+	}
 
 	public void nombreContact(List<Contact> list) {
 		System.out.println("Indiquez le nombre de contact :");
 		int count = scanner.nextInt();
-		String[] names = new String[count];
-		String[] numbers = new String[count];
-		scanner.nextLine();
-		int j = 0;
-		for (int i = 0; i < count; i++) {
-			System.out.println("Contact n°" + ++j);
-			System.out.print("Saisir son nom : ");
-			String name = scanner.nextLine();
-			names[i] = name;
-			System.out.print("Saisir son numéro : ");
-			String number = scanner.nextLine();
-			numbers[i] = number;
-			System.out.println("----------------\n");
+		if(count ==(int)count) {
+			try {
+				String[] names = new String[count];
+				String[] numbers = new String[count];
+				scanner.nextLine();
+				int j = 0;
+				for (int i = 0; i < count; i++) {
+					System.out.println("Contact n°" + ++j);
+					System.out.print("Saisir son nom : ");
+					String name = scanner.nextLine().toLowerCase();
+					if (!name.isEmpty() && name.matches("^[a-z]*$") )
+					names[i] = name;
+					else {
+						System.out.println("Votre saisie n'est pas une chaine de caractères");
+					}
+					System.out.print("Saisir son numéro : ");
+					String number = scanner.nextLine().toLowerCase();
+					if(!number.isEmpty() && number.matches("^[0-9]*$")) {
+					numbers[i] = number;}
+					else {
+						System.out.println("Votre saisie n'est pas une chaine de caractères");
+					}
+					System.out.println("----------------\n");
 
-		}
-		for (int k = 0; k < names.length; k++) {
-			list.add(ajouterContact(names[k], numbers[k]));
-			System.out.println(list.get(k).getNom() + " " + list.get(k).getNumero());
+				}
+				for (int k = 0; k < names.length; k++) {
+					list.add(ajouterContact(names[k], numbers[k]));
+					System.out.println(list.get(k).getNom() + " " + list.get(k).getNumero());
+				}
+			} catch (Exception e) {
+				System.out.println("Votre saisie n'est pas une valeur numériqe");
+			}
+
 		}
 	}
 }
